@@ -1,4 +1,4 @@
-defmodule Namedays.Creator do
+defmodule Namedays.NamedayProvider do
   use GenServer
 
   def start_link(state) do
@@ -24,10 +24,13 @@ defmodule Namedays.Creator do
   end
 
   def handle_cast(:get_todays_namedays, state) do
-    date = Date.utc_today()
+    {:ok, %DateTime{month: month, day: day}} = Application.fetch_env!(:namedays, :timezone) |> DateTime.now()
 
-    Map.get(state, "#{date.month}-#{date.day}")
-    |> IO.inspect()
+    [month, day]
+      |> Enum.map(fn value -> Integer.to_string(value) |> String.pad_leading(2, "0") end)
+      |> Enum.reduce(fn (carry, elem) -> elem<>"-"<>carry end)
+      |> (&Map.get(state, &1)).()
+      |> IO.inspect()
 
     {:noreply, state}
   end
