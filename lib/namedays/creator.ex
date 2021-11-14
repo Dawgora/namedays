@@ -17,7 +17,8 @@ defmodule Namedays.Creator do
   end
 
   def handle_cast({:get_nameday_date, name}, state) do
-    getNames(state, name)
+    get_nameday_date(state, name)
+    |> IO.inspect()
 
     {:noreply, state}
   end
@@ -31,11 +32,10 @@ defmodule Namedays.Creator do
     {:noreply, state}
   end
 
-  defp getNames(state, name) do
+  defp get_nameday_date(state, name) do
     state
     |> Enum.find({"-"}, fn {_key, val} -> Enum.member?(val, name) end)
     |> elem(0)
-    |> IO.inspect()
   end
 
   defp get_init_content() do
