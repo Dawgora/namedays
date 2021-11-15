@@ -9,32 +9,24 @@ defmodule Namedays.NamedayProvider do
     get_init_content()
   end
 
-  def handle_cast({:get_date_nameday, %{month: month, day: day}}, state) do
+  def handle_call({:get_date_nameday, %{month: month, day: day}}, _from, state) do
     get_namedays_by_listed_date([month, day], state)
 
-    {:noreply, state}
+    {:reply, get_namedays_by_listed_date([month, day], state), state}
   end
 
-  def handle_cast({:get_date_nameday, nameday}, state) do
-    Map.get(state, nameday)
-    |> IO.inspect()
-
-    {:noreply, state}
+  def handle_call({:get_date_nameday, nameday}, _from, state) do
+    {:reply, Map.get(state, nameday), state}
   end
 
-  def handle_cast({:get_nameday_date, name}, state) do
-    get_nameday_date(state, name)
-    |> IO.inspect()
-
-    {:noreply, state}
+  def handle_call({:get_nameday_date, name}, _from, state) do
+    {:reply, get_nameday_date(state, name), state}
   end
 
-  def handle_cast(:get_todays_namedays, state) do
+  def handle_call(:get_todays_namedays, _from, state) do
     {:ok, %DateTime{month: month, day: day}} = Application.fetch_env!(:namedays, :timezone) |> DateTime.now()
 
-    get_namedays_by_listed_date([month, day], state)
-
-    {:noreply, state}
+    {:reply, get_namedays_by_listed_date([month, day], state), state}
   end
 
   defp get_nameday_date(state, name) do
@@ -61,6 +53,7 @@ defmodule Namedays.NamedayProvider do
     Jason.decode!(namedaysContent)
   end
 
+  defp convert_string_date_to_mapped_date(string_date) when string_date == "-", do: nil
   defp convert_string_date_to_mapped_date(string_date) when is_bitstring(string_date) do
       [month, day] = String.split(string_date, "-")
 
@@ -72,6 +65,5 @@ defmodule Namedays.NamedayProvider do
     |> Enum.map(fn value -> Integer.to_string(value) |> String.pad_leading(2, "0") end)
     |> Enum.reduce(fn (elem, carry) -> carry<>"-"<>elem end)
     |> (&Map.get(state, &1)).()
-    |> IO.inspect()
   end
 end
