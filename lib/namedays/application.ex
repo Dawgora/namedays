@@ -16,4 +16,5 @@ defmodule Namedays.Application do
     opts = [strategy: :one_for_one, name: Namedays.Supervisor]
     Supervisor.start_link(children, opts)
   end
+
 end

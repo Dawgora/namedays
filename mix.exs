@@ -15,7 +15,14 @@ defmodule Namedays.MixProject do
   def application do
     [
       extra_applications: [:logger],
-      mod: {Namedays.Application, []}
+      mod: {Namedays.Application, []},
+      env: [
+        content_files: [
+          'priv/resources/namedays.json',
+          'priv/resources/namedays-extended.json'
+        ],
+        timezone: "Europe/Riga"
+      ]
     ]
   end
 

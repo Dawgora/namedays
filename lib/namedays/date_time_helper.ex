@@ -4,6 +4,6 @@ defmodule Namedays.DateTimeHelper do
     end
 
     def now do
-      get_timezone() |> DateTime.now()
+      DateTime.now(get_timezone(), Tzdata.TimeZoneDatabase)
     end
 end
