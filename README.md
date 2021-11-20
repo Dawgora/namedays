@@ -1,6 +1,9 @@
 # Namedays
 
-**TODO: Add description**
+##TODO:
+- Use timez, and don't manage the timezones like it's been done now ( https://hexdocs.pm/elixir/1.12/DateTime.html#now/2  )
+- move json to priv
+- edit config https://hexdocs.pm/elixir/Application.html#module-the-application-environment
 
 ## Installation
 
@@ -18,4 +21,3 @@ end
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/namedays](https://hexdocs.pm/namedays).
-
