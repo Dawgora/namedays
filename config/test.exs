@@ -1,7 +1,7 @@
 import Config
 
 config :namedays, content_files: [
-  'test/resources/namedays.json'
+  "priv/resources/namedays-test.json"
 ],
 datetime_implementation: Namedays.DateTimeHelperDummy,
 timezone: "Europe/Riga"

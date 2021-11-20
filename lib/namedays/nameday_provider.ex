@@ -58,7 +58,7 @@ defmodule Namedays.NamedayProvider do
     {:ok, stack}
   end
 
-  defp read_and_decode_json_file(file), do: File.read!(file) |> Jason.decode!()
+  defp read_and_decode_json_file(file), do: Application.app_dir(:namedays, file) |> File.read! |> Jason.decode!()
 
   defp convert_string_date_to_mapped_date(string_date) when string_date == "-", do: nil
 
