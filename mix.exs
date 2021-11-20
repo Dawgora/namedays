@@ -18,8 +18,8 @@ defmodule Namedays.MixProject do
       mod: {Namedays.Application, []},
       env: [
         content_files: [
-          'priv/resources/namedays.json',
-          'priv/resources/namedays-extended.json'
+          "priv/resources/namedays.json",
+          "priv/resources/namedays-extended.json"
         ],
         timezone: "Europe/Riga"
       ]
